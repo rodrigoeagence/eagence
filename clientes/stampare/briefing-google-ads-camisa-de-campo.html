@@ -119,11 +119,6 @@ h3.sh .mono{font-size:11px;color:var(--muted);font-weight:400;letter-spacing:.04
 .note{border:1px solid var(--line);border-left:4px solid var(--red);background:var(--surface);border-radius:6px;padding:12px 16px;font-size:14px}
 .note b{font-family:var(--f-display);font-weight:600}
 
-/* Diff mudanças */
-.diff{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
-.diff .row{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;font-size:14px}
-.diff .row .was{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--red)}
-.diff .row .lab{font-family:var(--f-mono);font-size:11px;color:var(--muted);text-transform:uppercase}
 
 /* Mix de verba */
 .mix{display:flex;height:42px;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
@@ -353,29 +348,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 </section>
 
 <main>
-
-<!-- MUDANÇAS -->
-<section class="block" id="revisao">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-tag"><b>Revisão</b>v2 do briefing</div>
-      <div>
-        <h2>O que mudou em relação à versão anterior</h2>
-        <p>Cruzamos o briefing antigo com a ficha técnica da Camisa de Campo, a apresentação de marca 2025, o canvas, a persona e as atas do site novo. Corrigimos o que estava errado e acrescentamos o que faltava para a campanha performar.</p>
-      </div>
-    </div>
-    <div class="diff">
-      <div class="row"><span class="lab">Cores</span><span><span class="was">Navy #1A3A5C + laranja #D4621A</span><br>Azul Stampare, areia e vermelho do rebrand 2025. Laranja não faz parte da marca.</span></div>
-      <div class="row"><span class="lab">Match</span><span><span class="was">“Ampla modificada”</span><br>Esse tipo de correspondência não existe mais. Usamos exata, frase e ampla com lances inteligentes.</span></div>
-      <div class="row"><span class="lab">Promessas</span><span><span class="was">“Orçamento em até 2 horas”, “Amostras grátis”</span><br>Saíram até o comercial confirmar. Entrou o layout virtual, que já faz parte do processo de venda.</span></div>
-      <div class="row"><span class="lab">Produto</span><span><span class="was">Copy genérica de “uniforme UV”</span><br>Diferenciais reais da Ref. 1108: UV 50+ que não sai na lavagem, fio Amni by Rhodia, pala com tela, manga conversível.</span></div>
-      <div class="row"><span class="lab">Estrutura</span><span><span class="was">1 grupo de anúncios</span><br>5 grupos por intenção, cada um com títulos próprios e página de destino definida.</span></div>
-      <div class="row"><span class="lab">Recursos</span><span><span class="was">Só sitelinks</span><br>Sitelinks, frases de destaque, snippets, imagens e formulário de lead com a pergunta de quantidade.</span></div>
-      <div class="row"><span class="lab">Mensuração</span><span><span class="was">Não previa</span><br>Conversão na página de solicitação enviada, conversões otimizadas e importação de lead qualificado do RD Station.</span></div>
-      <div class="row"><span class="lab">Visual</span><span><span class="was">Só tabela de tamanhos</span><br>Mockup de cada anúncio em tamanho real, com fotos reais do produto e a marca oficial.</span></div>
-    </div>
-  </div>
-</section>
 
 <!-- ESTRATEGIA -->
 <section class="block" id="estrategia">
