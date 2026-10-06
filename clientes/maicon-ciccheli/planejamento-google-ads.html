@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Google Ads · Maicon Ciccheli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: prancha técnica — carimbo no topo, navegação fixa por seções, conteúdo em coluna única com grades internas */
+:root{
+  --navy:#2C4068; --blue:#1D4E89; --orange:#F48238;
+  --bg:#F3F5F9; --surface:#FFFFFF; --surface-2:#E9EDF4;
+  --fg:#16213A; --muted:#55627C; --line:#D3DAE6;
+  --accent:#1D4E89; --accent-fg:#FFFFFF; --hot:#D9661C; --hot-soft:#FDEBDD;
+  --ok:#1E7A4C; --ok-soft:#DDF2E6; --warn:#A55A00; --warn-soft:#FFF1D6; --bad:#B42318; --bad-soft:#FDE3E1;
+  --grid:rgba(29,78,137,.07);
+  --g-bg:#FFFFFF; --g-fg:#1F1F1F; --g-link:#1A0DAB; --g-url:#4D5156; --g-muted:#4D5156; --g-line:#DADCE0; --g-chip:#F1F3F4;
+  --display:"Archivo",ui-sans-serif,system-ui,sans-serif;
+  --body:"Source Sans 3",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --radius:10px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1524; --surface:#151F33; --surface-2:#1C2942;
+    --fg:#E6EBF4; --muted:#9AA8C2; --line:#2A3A58;
+    --accent:#6FA3E6; --accent-fg:#0E1524; --hot:#F79A5C; --hot-soft:#3A2618;
+    --ok:#5CCB8F; --ok-soft:#163626; --warn:#F2B755; --warn-soft:#3A2C12; --bad:#F2877D; --bad-soft:#3D1A18;
+    --grid:rgba(111,163,230,.07);
+    --g-bg:#202124; --g-fg:#E8EAED; --g-link:#99C3FF; --g-url:#BDC1C6; --g-muted:#BDC1C6; --g-line:#3C4043; --g-chip:#303134;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1524; --surface:#151F33; --surface-2:#1C2942;
+  --fg:#E6EBF4; --muted:#9AA8C2; --line:#2A3A58;
+  --accent:#6FA3E6; --accent-fg:#0E1524; --hot:#F79A5C; --hot-soft:#3A2618;
+  --ok:#5CCB8F; --ok-soft:#163626; --warn:#F2B755; --warn-soft:#3A2C12; --bad:#F2877D; --bad-soft:#3D1A18;
+  --grid:rgba(111,163,230,.07);
+  --g-bg:#202124; --g-fg:#E8EAED; --g-link:#99C3FF; --g-url:#BDC1C6; --g-muted:#BDC1C6; --g-line:#3C4043; --g-chip:#303134;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-text-size-adjust:100%}
+img{max-width:100%}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.45rem,1.1rem + 1.4vw,2rem);font-weight:750;font-variation-settings:"wdth" 112;letter-spacing:-.01em}
+h3{font-size:1.12rem;font-weight:700;font-variation-settings:"wdth" 106}
+p{margin:0}
+a{color:var(--accent)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px}
+@media (max-width:480px){.wrap{padding-inline:16px}}
+.mono{font-family:var(--mono)}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--hot);font-weight:600}
+.muted{color:var(--muted)}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- HERO / CARIMBO ---------- */
+.hero{background:linear-gradient(160deg,#22355A 0%,#1D4E89 100%);color:#F2F5FA;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+.hero .wrap{position:relative;padding-block:44px 36px;display:grid;gap:28px}
+.brandline{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.mark{width:42px;height:42px;border-radius:8px;background:#F48238;display:grid;place-items:center;font-family:var(--display);font-weight:800;color:#1B2C4D;font-size:1.05rem;font-variation-settings:"wdth" 120}
+.brandline strong{font-family:var(--display);font-variation-settings:"wdth" 118;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.92rem}
+.brandline span{font-family:var(--mono);font-size:.72rem;opacity:.75;letter-spacing:.08em}
+.hero h1{font-size:clamp(2rem,1.2rem + 3.6vw,3.6rem);font-weight:800;font-variation-settings:"wdth" 118;letter-spacing:-.015em;max-width:18ch}
+.hero h1 em{font-style:normal;color:#F48238}
+.hero .lede{max-width:62ch;font-size:1.08rem;opacity:.9}
+.stamp{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1.5px solid rgba(255,255,255,.55);border-radius:4px;font-family:var(--mono);font-size:.74rem}
+.stamp>div{padding:10px 12px;border-right:1px solid rgba(255,255,255,.35);min-width:0}
+.stamp>div:last-child{border-right:0}
+.stamp b{display:block;font-family:var(--display);font-size:1.15rem;font-weight:700;letter-spacing:0;margin-top:2px;font-variation-settings:"wdth" 110;color:#fff}
+.stamp small{opacity:.7;text-transform:uppercase;letter-spacing:.1em}
+@media (max-width:720px){.stamp{grid-template-columns:repeat(2,minmax(0,1fr))}.stamp>div:nth-child(2){border-right:0}.stamp>div:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.35)}}
+
+/* ---------- NAV ---------- */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+.nav .wrap::-webkit-scrollbar{display:none}
+.nav a{flex:none;text-decoration:none;color:var(--muted);font-size:.86rem;font-weight:600;padding:7px 12px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+.nav a:hover{color:var(--fg);border-color:var(--line)}
+.nav a.active{background:var(--accent);color:var(--accent-fg)}
+
+/* ---------- SECTIONS ---------- */
+main section{padding-block:56px 8px}
+.sec-head{display:grid;gap:8px;margin-bottom:24px;max-width:72ch}
+.sec-head p{color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:860px){.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.g2,.g3{grid-template-columns:1fr}}
+.grid>*{min-width:0}
+.kv{display:grid;gap:10px}
+.kv div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;padding-bottom:10px;border-bottom:1px dashed var(--line)}
+.kv div:last-child{border-bottom:0;padding-bottom:0}
+.kv dt{font-family:var(--mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding-top:3px}
+.kv dd{margin:0}
+@media (max-width:520px){.kv div{grid-template-columns:1fr;gap:2px}}
+ul.clean{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+ul.clean li{padding-left:20px;position:relative}
+ul.clean li::before{content:"";position:absolute;left:2px;top:.62em;width:8px;height:2px;background:var(--hot)}
+.note{border-left:3px solid var(--hot);background:var(--hot-soft);padding:12px 16px;border-radius:0 8px 8px 0;font-size:.95rem}
+.note.info{border-color:var(--accent);background:var(--surface-2)}
+.tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:var(--surface-2);color:var(--muted);white-space:nowrap}
+.tag.on{background:var(--ok-soft);color:var(--ok)}
+.tag.off{background:var(--bad-soft);color:var(--bad)}
+.tag.hot{background:var(--hot-soft);color:var(--hot)}
+.tag.later{background:var(--warn-soft);color:var(--warn)}
+
+/* estrutura */
+.tree{display:grid;gap:12px}
+.adg{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 16px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.adg .pct{font-family:var(--display);font-weight:800;font-size:1.6rem;color:var(--accent);font-variation-settings:"wdth" 115;min-width:3.2ch}
+.adg h4{font-size:1rem}
+.adg p{font-size:.9rem;color:var(--muted)}
+.bar{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:var(--accent)}
+@media (max-width:520px){.adg{grid-template-columns:auto minmax(0,1fr)}.adg .tag{grid-column:2}}
+
+/* fases */
+.phases{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+.phase{padding:16px;border-right:1px solid var(--line);display:grid;gap:6px;align-content:start}
+.phase:last-child{border-right:0}
+.phase .when{font-family:var(--mono);font-size:.72rem;color:var(--hot);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+.phase p{font-size:.92rem;color:var(--muted)}
+@media (max-width:860px){.phases{grid-template-columns:1fr 1fr}.phase:nth-child(2){border-right:0}.phase:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+@media (max-width:520px){.phases{grid-template-columns:1fr}.phase{border-right:0;border-bottom:1px solid var(--line)}.phase:last-child{border-bottom:0}}
+
+/* calculadora */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:20px}
+@media (max-width:820px){.calc{grid-template-columns:1fr}}
+.field{display:grid;gap:6px;margin-bottom:16px}
+.field label{display:flex;justify-content:space-between;gap:10px;font-weight:600;font-size:.94rem}
+.field output{font-family:var(--mono);color:var(--accent);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--orange)}
+.field small{color:var(--muted);font-size:.82rem}
+.results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.results div{background:var(--surface);padding:16px}
+.results small{display:block;font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.results b{display:block;font-family:var(--display);font-size:1.7rem;font-weight:750;font-variation-settings:"wdth" 110;font-variant-numeric:tabular-nums;margin-top:4px}
+.results .big{grid-column:1/-1;background:var(--navy);color:#fff}
+.results .big small{color:rgba(255,255,255,.75)}
+.results .big b{color:#F48238;font-size:2.2rem}
+
+/* listas de assets */
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);padding:7px 12px;border-radius:8px;cursor:pointer;font-size:.86rem;font-weight:600;color:var(--fg)}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--orange);border-color:var(--orange);color:#1B2C4D}
+.btn.primary:hover{filter:brightness(1.05);color:#1B2C4D}
+.btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.assets{display:grid;gap:6px;margin:0;padding:0;list-style:none;counter-reset:a}
+.asset{display:grid;grid-template-columns:2.2em minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:9px 12px;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+.asset::before{counter-increment:a;content:counter(a,decimal-leading-zero);font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+.asset .t{overflow-wrap:anywhere;font-weight:600}
+.asset .sub{display:block;font-weight:400;color:var(--muted);font-size:.88rem}
+.cnt{font-family:var(--mono);font-size:.74rem;padding:2px 7px;border-radius:4px;background:var(--ok-soft);color:var(--ok);white-space:nowrap}
+.cnt.over{background:var(--bad-soft);color:var(--bad)}
+.copy{border:0;background:transparent;cursor:pointer;color:var(--muted);padding:4px 6px;border-radius:6px;font-size:.8rem;font-family:var(--mono)}
+.copy:hover{color:var(--accent);background:var(--surface-2)}
+@media (max-width:520px){.asset{grid-template-columns:2em minmax(0,1fr) auto}.asset .copy{display:none}}
+
+.sl{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:700px){.sl{grid-template-columns:1fr}}
+.slc{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:grid;gap:8px;min-width:0}
+.slc header{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.slc h4{font-size:1rem;color:var(--accent)}
+.slc .line{display:flex;justify-content:space-between;gap:10px;font-size:.93rem}
+.slc code{font-family:var(--mono);font-size:.78rem;color:var(--muted);overflow-wrap:anywhere}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.92rem}
+.chip .cnt{padding:1px 6px}
+
+/* palavras-chave */
+.kw-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;background:var(--surface-2)}
+tr:last-child td{border-bottom:0}
+td.kw{font-family:var(--mono);font-size:.86rem;white-space:nowrap}
+.neg{display:flex;flex-wrap:wrap;gap:6px}
+.neg span{font-family:var(--mono);font-size:.8rem;padding:3px 8px;border-radius:4px;background:var(--bad-soft);color:var(--bad)}
+
+/* ---------- SERP ---------- */
+.serp-ctrl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+.serp-ctrl .sep{flex:1}
+.stage{display:grid;place-items:center;padding:24px 12px;border-radius:var(--radius);background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
+.g{background:var(--g-bg);color:var(--g-fg);font-family:Arial,Roboto,"Helvetica Neue",sans-serif;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08),0 12px 32px -12px rgba(16,32,64,.25);width:100%}
+.g.desktop{max-width:760px;padding:18px 22px 22px}
+.g.mobile{max-width:390px;padding:12px 14px 18px;border-radius:26px;border:8px solid #111827}
+.gbar{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.glogo{font-size:1.45rem;font-weight:600;letter-spacing:-.02em;flex:none}
+.glogo span:nth-child(1){color:#4285F4}.glogo span:nth-child(2){color:#EA4335}.glogo span:nth-child(3){color:#FBBC05}.glogo span:nth-child(4){color:#4285F4}.glogo span:nth-child(5){color:#34A853}.glogo span:nth-child(6){color:#EA4335}
+.gsearch{flex:1;min-width:0;display:flex;align-items:center;gap:8px;border:1px solid var(--g-line);border-radius:24px;padding:9px 16px;font-size:.95rem;box-shadow:0 1px 5px rgba(32,33,36,.12)}
+.gsearch span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gtabs{display:flex;gap:18px;font-size:.84rem;color:var(--g-muted);border-bottom:1px solid var(--g-line);padding-bottom:8px;margin-bottom:16px;overflow:hidden}
+.gtabs b{color:var(--g-link);font-weight:400;border-bottom:3px solid var(--g-link);padding-bottom:6px;margin-bottom:-9px}
+.mobile .gbar{flex-direction:column;align-items:stretch;gap:10px}
+.mobile .glogo{text-align:center}
+.mobile .gtabs{gap:14px}
+.gad{display:grid;gap:4px}
+.gspons{font-weight:700;font-size:.88rem;margin-bottom:6px}
+.gsrc{display:flex;gap:10px;align-items:center}
+.gfav{width:28px;height:28px;border-radius:50%;background:#EEF0F3;border:1px solid var(--g-line);display:grid;place-items:center;flex:none}
+.gfav i{width:18px;height:18px;border-radius:4px;background:#2C4068;display:grid;place-items:center;color:#F48238;font-style:normal;font-weight:800;font-size:.62rem;font-family:Arial,sans-serif}
+.gname{font-size:.88rem;line-height:1.25;min-width:0}
+.gname div{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gname small{color:var(--g-url);font-size:.78rem}
+.gtitle{color:var(--g-link);font-size:1.25rem;line-height:1.3;margin-top:6px;cursor:pointer}
+.gtitle:hover{text-decoration:underline}
+.mobile .gtitle{font-size:1.12rem}
+.gdesc{color:var(--g-muted);font-size:.88rem;line-height:1.55}
+.gdesc b{color:var(--g-fg);font-weight:400}
+.gsnip{color:var(--g-muted);font-size:.86rem}
+.gsl{display:grid;grid-template-columns:1fr 1fr;gap:10px 36px;margin-top:10px;padding-left:2px}
+.gsl a{color:var(--g-link);text-decoration:none;font-size:1rem}
+.gsl a:hover{text-decoration:underline}
+.gsl p{color:var(--g-muted);font-size:.84rem;line-height:1.4}
+.gchips{display:flex;gap:8px;overflow-x:auto;margin-top:10px;padding-bottom:4px;scrollbar-width:none}
+.gchips::-webkit-scrollbar{display:none}
+.gchips span{flex:none;border:1px solid var(--g-line);border-radius:18px;padding:7px 14px;color:var(--g-link);font-size:.86rem;background:var(--g-bg)}
+.gcall{display:flex;gap:8px;margin-top:10px}
+.gcall span{flex:1;text-align:center;border:1px solid var(--g-line);border-radius:18px;padding:8px;font-size:.86rem;color:var(--g-link)}
+.gorg{margin-top:22px;padding-top:16px;border-top:1px solid var(--g-line);display:grid;gap:8px;opacity:.55}
+.gorg i{display:block;height:10px;border-radius:5px;background:var(--g-chip)}
+.legend{display:grid;gap:8px;margin-top:16px;font-size:.9rem}
+.legend div{display:flex;gap:10px;align-items:baseline}
+.legend code{font-family:var(--mono);font-size:.78rem;color:var(--muted);flex:none;width:9.5em}
+.legend span{min-width:0;overflow-wrap:anywhere}
+@media (max-width:520px){.legend div{flex-direction:column;gap:2px}.stage{padding:14px 6px}.g.desktop{padding:14px}.gsl{grid-template-columns:1fr}}
+
+/* checklist */
+.check{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.check label{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;padding:10px 14px;background:var(--surface);border:1px solid var(--line);border-radius:8px;cursor:pointer}
+.check input{margin-top:4px;accent-color:var(--orange);width:17px;height:17px}
+.check input:checked + span{color:var(--muted);text-decoration:line-through}
+.progress{display:flex;align-items:center;gap:12px;margin-bottom:12px;font-family:var(--mono);font-size:.82rem;color:var(--muted)}
+.progress .bar{flex:1;margin:0}
+.progress .bar i{background:var(--orange);transition:width .3s}
+
+footer{margin-top:64px;border-top:1px solid var(--line);padding-block:28px 40px;font-size:.88rem;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:10px 18px;border-radius:999px;font-size:.9rem;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:50}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="brandline">
+      <div class="mark" aria-hidden="true">MC</div>
+      <div><strong>Maicon Ciccheli · Engenharia e Projetos</strong><br><span>CREA/SP 5069414540 · Santa Bárbara d'Oeste/SP</span></div>
+    </div>
+    <div class="eyebrow" style="color:#F7A56E">Planejamento de mídia · Google Ads · Rede de Pesquisa</div>
+    <h1>Leads qualificados de <em>engenharia térmica</em> com R$ 500 por mês</h1>
+    <p class="lede">Briefing de campanha para a gestora de tráfego. Traz estratégia, segmentação, palavras-chave, todos os textos do anúncio já validados nos limites de caracteres e a prévia de como o anúncio aparece no Google.</p>
+    <div class="stamp" role="group" aria-label="Resumo da campanha">
+      <div><small>Investimento</small><b class="num">R$ 500/mês</b></div>
+      <div><small>Diário</small><b class="num">R$ 16,44</b></div>
+      <div><small>Rede</small><b>Pesquisa</b></div>
+      <div><small>Rev. 01</small><b class="num">Out/2026</b></div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Seções">
+  <div class="wrap" id="navlinks">
+    <a href="#estrategia">Estratégia</a>
+    <a href="#resultados">Projeção</a>
+    <a href="#segmentacao">Segmentação</a>
+    <a href="#palavras">Palavras-chave</a>
+    <a href="#anuncio">Títulos e descrições</a>
+    <a href="#recursos">Recursos</a>
+    <a href="#previa">Prévia no Google</a>
+    <a href="#implantacao">Implantação</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ================= ESTRATÉGIA ================= -->
+<section id="estrategia">
+  <div class="sec-head">
+    <span class="eyebrow">01 · Estratégia</span>
+    <h2>Concentrar a verba onde o Maicon já fecha negócio</h2>
+    <p>Com R$ 500 por mês não dá para disputar todos os serviços ao mesmo tempo. A campanha começa pelos dois serviços com mais demanda e mais recorrência: projetos de climatização e PMOC. Instaladoras de ar-condicionado são 80 a 90% da base de clientes, e o verão, que começa agora, é o pico do segmento.</p>
+  </div>
+
+  <div class="grid g2">
+    <div class="panel">
+      <h3 style="margin-bottom:14px">Configuração da campanha</h3>
+      <dl class="kv">
+        <div><dt>Tipo</dt><dd>Pesquisa (Search), objetivo <b>Leads</b></dd></div>
+        <div><dt>Nome sugerido</dt><dd class="mono" style="font-size:.88rem">MC | Pesquisa | Leads | Climatização+PMOC</dd></div>
+        <div><dt>Orçamento</dt><dd><b class="num">R$ 16,44/dia</b> (R$ 500 ÷ 30,4). O Google pode gastar até 2× num dia, mas nunca passa de 30,4× o diário no mês.</dd></div>
+        <div><dt>Redes</dt><dd><span class="tag off">Parceiros de pesquisa: desligado</span> <span class="tag off">Rede de Display: desligado</span></dd></div>
+        <div><dt>Lances, sem. 1–4</dt><dd><b>Maximizar cliques</b> com limite de CPC máx. de <b>R$ 6,00</b>, para gerar dados rápido em conta nova.</dd></div>
+        <div><dt>Lances, depois</dt><dd><b>Maximizar conversões</b> quando houver ≥ 15 conversões em 30 dias. Com ≥ 30, testar <b>CPA desejado</b>.</dd></div>
+        <div><dt>AI Max</dt><dd><span class="tag off">Desligado no início</span> Com verba curta precisamos controlar os termos. Reavaliar no mês 3.</dd></div>
+        <div><dt>Recomendações automáticas</dt><dd><span class="tag off">Aplicação automática desligada</span></dd></div>
+      </dl>
+    </div>
+
+    <div class="panel">
+      <h3 style="margin-bottom:6px">Estrutura dos grupos de anúncios</h3>
+      <p class="muted" style="font-size:.92rem;margin-bottom:14px">O orçamento é da campanha. A divisão abaixo é a meta de distribuição, controlada pelo volume de palavras e pelos lances.</p>
+      <div class="tree">
+        <div class="adg">
+          <div class="pct num">60%</div>
+          <div><h4>G1 · Projetos HVAC e Exaustão</h4><p>VRF, multi split, dutado, carga térmica, exaustão de cozinha industrial</p><div class="bar"><i style="width:60%"></i></div></div>
+          <span class="tag on">Ativo</span>
+        </div>
+        <div class="adg">
+          <div class="pct num">40%</div>
+          <div><h4>G2 · PMOC e Laudos</h4><p>PMOC com ART, responsável técnico, laudo de instalação</p><div class="bar"><i style="width:40%"></i></div></div>
+          <span class="tag on">Ativo</span>
+        </div>
+        <div class="adg">
+          <div class="pct num" style="color:var(--muted)">—</div>
+          <div><h4>G3 · Estruturas Metálicas e Laudo Solar</h4><p>Galpões, mezaninos, coberturas, laudo para placas solares</p><div class="bar"><i style="width:0"></i></div></div>
+          <span class="tag later">Fase 2</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:32px 0 14px">Fases dos primeiros 90 dias</h3>
+  <div class="phases">
+    <div class="phase"><span class="when">Semana 0</span><h4>Implantação</h4><p>Tag do Google e conversões no site, verificação do anunciante, criação da campanha e dos recursos.</p></div>
+    <div class="phase"><span class="when">Semanas 1–4</span><h4>Aprendizado</h4><p>Ler os termos de pesquisa a cada 3 dias e negativar. Não mexer em lances nem textos nesse período.</p></div>
+    <div class="phase"><span class="when">Mês 2</span><h4>Otimização</h4><p>Migrar para Maximizar conversões. Trocar títulos com desempenho "Baixo". Ajustar horários.</p></div>
+    <div class="phase"><span class="when">Mês 3</span><h4>Expansão</h4><p>Avaliar ligar o G3, testar AI Max e propor aumento de verba para o pico do verão (dez–mar).</p></div>
+  </div>
+</section>
+
+<!-- ================= PROJEÇÃO ================= -->
+<section id="resultados">
+  <div class="sec-head">
+    <span class="eyebrow">02 · Projeção</span>
+    <h2>Quanto R$ 500 podem trazer</h2>
+    <p>Simulação com valores de referência para serviços B2B de engenharia no interior de SP. Mexa nos controles para testar cenários. Os números finais vêm do Planejador de palavras-chave e das primeiras 4 semanas de campanha.</p>
+  </div>
+  <div class="calc">
+    <div class="panel">
+      <div class="field">
+        <label for="c-inv">Investimento mensal <output id="o-inv">R$ 500</output></label>
+        <input type="range" id="c-inv" min="300" max="2000" step="50" value="500">
+      </div>
+      <div class="field">
+        <label for="c-cpc">CPC médio <output id="o-cpc">R$ 3,50</output></label>
+        <input type="range" id="c-cpc" min="1" max="10" step="0.25" value="3.5">
+        <small>Faixa esperada: R$ 2,50 a R$ 5,00 para termos de projeto e PMOC.</small>
+      </div>
+      <div class="field">
+        <label for="c-cvr">Taxa de conversão da página <output id="o-cvr">7%</output></label>
+        <input type="range" id="c-cvr" min="2" max="20" step="0.5" value="7">
+        <small>Formulário, WhatsApp ou ligação. Landing page por serviço eleva essa taxa.</small>
+      </div>
+      <div class="field">
+        <label for="c-close">Leads que viram contrato <output id="o-close">20%</output></label>
+        <input type="range" id="c-close" min="5" max="50" step="1" value="20">
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label for="c-ticket">Ticket médio <output id="o-ticket">R$ 3.000</output></label>
+        <input type="range" id="c-ticket" min="1000" max="15000" step="500" value="3000">
+        <small>Valor informado no briefing.</small>
+      </div>
+    </div>
+    <div class="results" aria-live="polite">
+      <div><small>Cliques/mês</small><b id="r-clk" class="num">143</b></div>
+      <div><small>Leads/mês</small><b id="r-lead" class="num">10</b></div>
+      <div><small>Custo por lead</small><b id="r-cpl" class="num">R$ 50</b></div>
+      <div><small>Contratos/mês</small><b id="r-ctr" class="num">2</b></div>
+      <div class="big"><small>Receita estimada × investimento</small><b id="r-roi" class="num">R$ 6.000 · 12×</b></div>
+    </div>
+  </div>
+  <p class="note info" style="margin-top:16px">Um único contrato de R$ 3.000 paga 6 meses de mídia. A meta realista para o 1º mês é <b>6 a 12 leads</b> com custo por lead entre <b>R$ 40 e R$ 85</b>.</p>
+</section>
+
+<!-- ================= SEGMENTAÇÃO ================= -->
+<section id="segmentacao">
+  <div class="sec-head">
+    <span class="eyebrow">03 · Segmentação</span>
+    <h2>Idiomas, local e público-alvo</h2>
+    <p>Na Rede de Pesquisa quem define o público é a palavra-chave. Os públicos ficam em modo <b>Observação</b>: não limitam o alcance, só geram dados para ajustar depois.</p>
+  </div>
+
+  <div class="grid g3">
+    <div class="panel">
+      <span class="eyebrow">Idiomas</span>
+      <h3 style="margin:6px 0 12px">Português + Inglês</h3>
+      <ul class="clean">
+        <li><b>Português</b>, o idioma principal.</li>
+        <li><b>Inglês</b> também. O Google usa o idioma da conta e do navegador do usuário, e muitos engenheiros e gestores usam o celular ou o Chrome em inglês, mesmo pesquisando em português.</li>
+        <li>Os anúncios ficam 100% em português.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <span class="eyebrow">Local</span>
+      <h3 style="margin:6px 0 12px">Raio de 80 km de Santa Bárbara d'Oeste</h3>
+      <ul class="clean">
+        <li>Cobre Americana, Nova Odessa, Sumaré, Campinas, Hortolândia, Paulínia, Piracicaba, Limeira, Indaiatuba e Rio Claro.</li>
+        <li>Opção de local: <b>Presença</b> (pessoas que estão ou costumam estar na região). Não usar "Presença ou interesse".</li>
+        <li>Fase 2: adicionar a capital paulista só para o G1 (projetos VRF), onde está a persona Mauro.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <span class="eyebrow">Programação e dispositivos</span>
+      <h3 style="margin:6px 0 12px">Horário comercial estendido</h3>
+      <ul class="clean">
+        <li><b>Seg–Sex, 07h–19h</b> e <b>Sáb, 08h–12h</b>. A persona começa cedo na obra e decide rápido.</li>
+        <li>Todos os dispositivos, sem ajuste de lance no início. O celular tende a puxar cliques no WhatsApp; o computador, formulários.</li>
+        <li>Rever horários com 30 dias de dados.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:16px">
+    <h3 style="margin-bottom:6px">Público-alvo indicado</h3>
+    <p class="muted" style="margin-bottom:16px;font-size:.95rem">Quem compra é B2B: o dono de instaladora de ar-condicionado (persona Mauro, 45 anos, gerente de obras, faturamento de R$ 100–300 mil por mês), arquitetos, engenheiros, construtoras e gestores de clínicas, escolas e lojas que precisam de PMOC.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Segmento</th><th>Como configurar</th><th>Modo</th></tr></thead>
+        <tbody>
+          <tr><td><b>Segmento personalizado: intenção</b></td><td>Pessoas que pesquisaram: <span class="mono" style="font-size:.84rem">projeto vrf, carga térmica, pmoc, art ar condicionado, projeto climatização, exaustão cozinha industrial</span>. Incluir os sites dos concorrentes: Climátiko, Logitec Project, Delta T Projetos, Coldspace, KSG Projetos e SPR Climatização.</td><td><span class="tag">Observação</span></td></tr>
+          <tr><td><b>No mercado (in-market)</b></td><td>No seletor, buscar por: <i>serviços empresariais e industriais</i>, <i>construção e manutenção</i>, <i>climatização / HVAC</i>, <i>imóveis comerciais</i>.</td><td><span class="tag">Observação</span></td></tr>
+          <tr><td><b>Afinidade</b></td><td><i>Profissionais de negócios</i> e <i>Construção civil</i>.</td><td><span class="tag">Observação</span></td></tr>
+          <tr><td><b>Dados próprios: visitantes do site</b></td><td>Lista de remarketing criada pela tag do Google. Na Pesquisa ela passa a valer com 100 usuários ativos.</td><td><span class="tag">Observação</span></td></tr>
+          <tr><td><b>Dados próprios: lista de clientes</b></td><td>Subir e-mails e telefones das 5–10 empresas parceiras (Customer Match). Serve de sinal para o lance automático.</td><td><span class="tag">Observação</span></td></tr>
+          <tr><td><b>Dados demográficos</b></td><td>Não excluir faixas. Acompanhar 35–54 anos, faixa da persona.</td><td><span class="tag">Observação</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PALAVRAS-CHAVE ================= -->
+<section id="palavras">
+  <div class="sec-head">
+    <span class="eyebrow">04 · Palavras-chave</span>
+    <h2>Termos de quem já precisa de um projeto</h2>
+    <p>Correspondência de <b>frase</b> e <b>exata</b> no início, para não pagar por curioso. A correspondência ampla só entra quando o lance for Maximizar conversões e a conta tiver histórico. O formato abaixo já está pronto para colar no Google Ads: <span class="mono">[exata]</span> e <span class="mono">"frase"</span>.</p>
+  </div>
+  <div class="kw-tabs" role="tablist" aria-label="Grupos de anúncios">
+    <button class="btn" role="tab" aria-pressed="true" data-kw="g1">G1 · HVAC e Exaustão</button>
+    <button class="btn" role="tab" aria-pressed="false" data-kw="g2">G2 · PMOC e Laudos</button>
+    <button class="btn" role="tab" aria-pressed="false" data-kw="g3">G3 · Estruturas (fase 2)</button>
+    <button class="btn" role="tab" aria-pressed="false" data-kw="neg">Negativas</button>
+    <span style="flex:1"></span>
+    <button class="btn primary" id="kw-copy">Copiar lista</button>
+  </div>
+  <div id="kw-out"></div>
+</section>
+
+<!-- ================= ANÚNCIO ================= -->
+<section id="anuncio">
+  <div class="sec-head">
+    <span class="eyebrow">05 · Anúncio responsivo de pesquisa</span>
+    <h2>15 títulos e 4 descrições</h2>
+    <p>Os contadores mostram os caracteres de cada texto. Tudo está dentro do limite do Google: títulos até 30 e descrições entre 35 e 90. O mesmo conjunto serve aos dois grupos ativos; muda só a URL final e o caminho exibido.</p>
+  </div>
+  <div class="grid g2">
+    <div>
+      <div class="toolbar"><h3>Títulos <span class="muted" style="font-weight:400">· até 30</span></h3><span style="flex:1"></span><button class="btn" data-copyset="headlines">Copiar 15</button></div>
+      <ol class="assets" id="list-headlines"></ol>
+    </div>
+    <div class="grid" style="align-content:start">
+      <div>
+        <div class="toolbar"><h3>Descrições <span class="muted" style="font-weight:400">· 35 a 90</span></h3><span style="flex:1"></span><button class="btn" data-copyset="descriptions">Copiar 4</button></div>
+        <ol class="assets" id="list-descriptions"></ol>
+      </div>
+      <div class="panel">
+        <h3 style="margin-bottom:10px">URL final e caminho exibido</h3>
+        <dl class="kv">
+          <div><dt>G1</dt><dd><code class="mono" style="font-size:.82rem;overflow-wrap:anywhere">/servicos/projetos-hvac</code><br><span class="muted">Caminho: projetos / climatizacao</span></dd></div>
+          <div><dt>G2</dt><dd><code class="mono" style="font-size:.82rem;overflow-wrap:anywhere">/servicos/laudos-pmoc</code><br><span class="muted">Caminho: pmoc / laudo-com-art</span></dd></div>
+        </dl>
+      </div>
+      <div class="note">
+        <b>Fixação.</b> Não fixar títulos, para manter a força do anúncio em "Excelente". Se o cliente exigir, fixe apenas o título 3 (CREA) na posição 2. <b>Regra de política:</b> o "até 70%" precisa aparecer na landing page de HVAC, e já está previsto no título dela.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RECURSOS ================= -->
+<section id="recursos">
+  <div class="sec-head">
+    <span class="eyebrow">06 · Recursos do anúncio</span>
+    <h2>Sitelinks, frases de destaque e snippets</h2>
+    <p>Configure os recursos no nível da campanha. Eles aumentam o espaço do anúncio na página e a taxa de cliques sem custo extra por exibição.</p>
+  </div>
+
+  <div class="toolbar"><h3>6 sitelinks <span class="muted" style="font-weight:400">· texto até 25 · descrições até 35</span></h3><span style="flex:1"></span><button class="btn" data-copyset="sitelinks">Copiar sitelinks</button></div>
+  <div class="sl" id="list-sitelinks"></div>
+  <p class="note info" style="margin-top:12px">Domínio usado nos links: <b class="mono">www.maiconciccheli.com.br</b>. <b>Confirmar o domínio definitivo</b> antes de subir. As rotas seguem a estrutura do site (Rev. 01).</p>
+
+  <div class="grid g2" style="margin-top:28px">
+    <div>
+      <div class="toolbar"><h3>10 frases de destaque <span class="muted" style="font-weight:400">· até 25</span></h3><span style="flex:1"></span><button class="btn" data-copyset="callouts">Copiar</button></div>
+      <ol class="assets" id="list-callouts"></ol>
+    </div>
+    <div>
+      <div class="toolbar"><h3>Snippets estruturados <span class="muted" style="font-weight:400">· até 25 por valor</span></h3><span style="flex:1"></span><button class="btn" data-copyset="snippets">Copiar</button></div>
+      <div class="panel" style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap"><span class="eyebrow">Cabeçalho: Catálogo de serviços</span><span class="tag on">Principal · 10 valores</span></div>
+        <ol class="assets" id="list-snippets"></ol>
+      </div>
+      <div class="panel" style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap"><span class="eyebrow">Cabeçalho: Tipos</span><span class="tag">Complementar</span></div>
+        <div class="chips" id="list-tipos"></div>
+      </div>
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap"><span class="eyebrow">Cabeçalho: Marcas</span><span class="tag later">Opcional</span></div>
+        <div class="chips" id="list-marcas"></div>
+        <p class="muted" style="font-size:.85rem;margin-top:10px">São as marcas de VRF com que o Maicon trabalha. Uma marca com restrição de uso registrada no Google pode ter o snippet reprovado. Se isso acontecer, remova o cabeçalho.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:16px">
+    <h3 style="margin-bottom:10px">Outros recursos para ativar</h3>
+    <div class="grid g2">
+      <ul class="clean">
+        <li><b>Chamada:</b> WhatsApp/telefone comercial, só no horário da programação. Conversão de ligação com duração mínima de 60 s.</li>
+        <li><b>Local:</b> vincular o Perfil da Empresa no Google (Santa Bárbara d'Oeste).</li>
+        <li><b>Nome da empresa e logotipo:</b> "Maicon Ciccheli Engenharia" e o logo do manual de marca. Exige a verificação do anunciante concluída.</li>
+      </ul>
+      <ul class="clean">
+        <li><b>Imagens:</b> 4 a 6 fotos reais de projetos (BIM, plantas, obras) em 1:1 e 1,91:1. Evitar banco de imagens.</li>
+        <li><b>Formulário de lead:</b> opcional. Usar só se o site atrasar, com a pergunta qualificadora "Tipo de imóvel/obra".</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRÉVIA ================= -->
+<section id="previa">
+  <div class="sec-head">
+    <span class="eyebrow">07 · Prévia</span>
+    <h2>Como o anúncio aparece na pesquisa</h2>
+    <p>O Google combina títulos e descrições sozinho a cada leilão. Escolha a pesquisa e o dispositivo e clique em <b>Nova combinação</b> para ver variações reais montadas com os textos acima.</p>
+  </div>
+  <div class="serp-ctrl">
+    <button class="btn" aria-pressed="true" data-q="0">projeto de ar condicionado vrf</button>
+    <button class="btn" aria-pressed="false" data-q="1">empresa de pmoc com art</button>
+    <button class="btn" aria-pressed="false" data-q="2">projeto exaustão cozinha industrial</button>
+  </div>
+  <div class="serp-ctrl">
+    <button class="btn" aria-pressed="true" data-dev="desktop">Computador</button>
+    <button class="btn" aria-pressed="false" data-dev="mobile">Celular</button>
+    <span class="sep"></span>
+    <button class="btn primary" id="shuffle">Nova combinação</button>
+  </div>
+  <div class="stage"><div id="serp" class="g desktop"></div></div>
+  <div class="legend" id="legend"></div>
+</section>
+
+<!-- ================= IMPLANTAÇÃO ================= -->
+<section id="implantacao">
+  <div class="sec-head">
+    <span class="eyebrow">08 · Implantação</span>
+    <h2>Checklist da gestora de tráfego</h2>
+    <p>Sem conversão medida, o lance automático não aprende e a verba se perde. Os itens de mensuração vêm antes de ativar a campanha. O progresso fica salvo neste navegador.</p>
+  </div>
+  <div class="progress"><span id="prog-txt">0 de 0</span><div class="bar"><i id="prog-bar" style="width:0"></i></div></div>
+  <div class="grid g2">
+    <div>
+      <h3 style="margin-bottom:10px">Antes de ativar</h3>
+      <ul class="check" id="check-a"></ul>
+    </div>
+    <div>
+      <h3 style="margin-bottom:10px">Rotina após o lançamento</h3>
+      <ul class="check" id="check-b"></ul>
+    </div>
+  </div>
+  <div class="note" style="margin-top:20px">
+    <b>Dependência crítica.</b> Os anúncios levam para as landing pages de serviço do novo site (<span class="mono">/servicos/…</span>). Se o site não estiver no ar, a campanha não deve ser ativada: mandar tráfego para o WhatsApp sem página derruba a qualidade do lead e o Índice de Qualidade.
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Maicon Ciccheli Engenharia e Projetos · CREA/SP 5069414540</span>
+    <span>Planejamento Google Ads · Eagence Marketing · Rev. 01 · Out/2026</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+const DOMAIN = "www.maiconciccheli.com.br";
+const DATA = {
+  headlines:["Projeto de Ar Condicionado","Projetos HVAC e VRF","Engenheiro com CREA Ativo","PMOC com Emissão de ART","Economia de até 70% com VRF","Projetos em BIM e CAD","Mais de 10 Anos de Experiência","Cálculo de Carga Térmica","Fale Direto com o Engenheiro","Exaustão p/ Cozinha Industrial","Laudo Técnico de Climatização","Orçamento Rápido no WhatsApp","Maicon Ciccheli Engenharia","Projetos Conforme NBR e ANVISA","Clínicas, Escolas e Hospitais"],
+  descriptions:["Projetos de ar condicionado VRF, multi split e dutados com cálculo de carga térmica e ART.","Regularize sua empresa com PMOC conforme a Lei 13.589/2018 e evite multas da fiscalização.","Mais de 10 anos em projetos para clínicas, escolas e alto padrão. Entrega em BIM e CAD.","Fale direto com o engenheiro pelo WhatsApp e receba seu orçamento técnico. Solicite já!"],
+  sitelinks:[
+    {t:"Projetos HVAC e VRF",d1:"VRF, multi split e dutados",d2:"Economia de até 70% em energia",u:"/servicos/projetos-hvac"},
+    {t:"PMOC e Laudos Técnicos",d1:"Documentação com emissão de ART",d2:"Evite multas da fiscalização",u:"/servicos/laudos-pmoc"},
+    {t:"Exaustão Industrial",d1:"Projetos p/ cozinhas industriais",d2:"Vazão e dutos bem dimensionados",u:"/servicos/exaustao-industrial"},
+    {t:"Estruturas Metálicas",d1:"Galpões, mezaninos e coberturas",d2:"Cálculo estrutural em BIM e CAD",u:"/servicos/estruturas-metalicas"},
+    {t:"Portfólio de Projetos",d1:"Veja projetos já entregues",d2:"Clínicas, lojas, indústrias e mais",u:"/portfolio"},
+    {t:"Fale com o Engenheiro",d1:"Atendimento direto pelo WhatsApp",d2:"Orçamento técnico sem compromisso",u:"/contato"}
+  ],
+  callouts:["Engenheiro com CREA/SP","Emissão de ART","Projetos em BIM e CAD","+10 Anos de Experiência","Atendimento via WhatsApp","Conforme Normas NBR","Economia de até 70%","Orçamento Técnico Rápido","Memorial de Cálculo","Lista de Materiais"],
+  snippets:["Projeto VRF","Multi Split","Central Dutado","Renovação de Ar","Salas Limpas","Exaustão Industrial","PMOC com ART","Laudo de Instalação","Estruturas Metálicas","Laudo p/ Energia Solar"],
+  tipos:["Clínicas e Hospitais","Escolas","Lojas em Shopping","Residências Alto Padrão","Galpões Industriais","Escritórios Corporativos"],
+  marcas:["Daikin","LG","Samsung","Midea","Carrier","Hitachi"]
+};
+const KW = {
+  g1:{title:"G1 · Projetos HVAC e Exaustão",url:"/servicos/projetos-hvac",rows:[
+    ["[projeto de ar condicionado]","Exata","Alta","Termo principal do serviço"],
+    ["[projeto de climatização]","Exata","Alta","Sinônimo usado por arquitetos"],
+    ["[projeto vrf]","Exata","Alta","Maior ticket, argumento de economia"],
+    ["[projeto de ar condicionado vrf]","Exata","Alta",""],
+    ["[projeto hvac]","Exata","Média","Público técnico (engenheiros)"],
+    ["[cálculo de carga térmica]","Exata","Média","Etapa do projeto, intenção técnica"],
+    ["[engenheiro de ar condicionado]","Exata","Alta","Busca pelo profissional"],
+    ["\"projeto de ar condicionado comercial\"","Frase","Alta",""],
+    ["\"projeto de ar condicionado central\"","Frase","Alta",""],
+    ["\"projeto de climatização comercial\"","Frase","Alta",""],
+    ["\"projeto ar condicionado clínica\"","Frase","Alta","Nicho citado no briefing"],
+    ["\"projeto de climatização hospitalar\"","Frase","Alta","Nicho de alta complexidade"],
+    ["\"projeto multi split\"","Frase","Média",""],
+    ["\"projeto de dutos de ar condicionado\"","Frase","Média",""],
+    ["\"projeto de renovação de ar\"","Frase","Média","Exigência de norma (ANVISA)"],
+    ["\"projeto de sala limpa\"","Frase","Média",""],
+    ["\"empresa de projeto de ar condicionado\"","Frase","Alta",""],
+    ["\"engenharia de climatização\"","Frase","Média",""],
+    ["\"projeto exaustão cozinha industrial\"","Frase","Alta","Restaurantes e indústrias"],
+    ["\"projeto de exaustão\"","Frase","Média",""],
+    ["\"projeto ar condicionado campinas\"","Frase","Alta","Variação local"],
+    ["\"projeto ar condicionado piracicaba\"","Frase","Alta","Variação local"]
+  ]},
+  g2:{title:"G2 · PMOC e Laudos",url:"/servicos/laudos-pmoc",rows:[
+    ["[pmoc ar condicionado]","Exata","Alta","Termo principal"],
+    ["[empresa de pmoc]","Exata","Alta","Intenção de contratar"],
+    ["[pmoc com art]","Exata","Alta",""],
+    ["[engenheiro pmoc]","Exata","Alta","Busca pelo responsável técnico"],
+    ["[laudo pmoc]","Exata","Alta",""],
+    ["[responsável técnico pmoc]","Exata","Alta","Contrato recorrente"],
+    ["\"elaboração de pmoc\"","Frase","Alta",""],
+    ["\"contratar pmoc\"","Frase","Alta",""],
+    ["\"plano de manutenção pmoc\"","Frase","Média","Atenção a buscas por modelo pronto"],
+    ["\"pmoc lei 13.589\"","Frase","Média","Gestor que recebeu notificação"],
+    ["\"art ar condicionado\"","Frase","Média",""],
+    ["\"responsável técnico ar condicionado\"","Frase","Alta",""],
+    ["\"laudo técnico ar condicionado\"","Frase","Alta",""],
+    ["\"laudo instalação ar condicionado condomínio\"","Frase","Alta","Exigência de síndico"],
+    ["\"laudo ar condicionado apartamento\"","Frase","Média",""]
+  ]},
+  g3:{title:"G3 · Estruturas Metálicas e Laudo Solar (fase 2)",url:"/servicos/estruturas-metalicas",rows:[
+    ["[projeto de estrutura metálica]","Exata","Alta",""],
+    ["[cálculo estrutural estrutura metálica]","Exata","Alta",""],
+    ["\"projeto de galpão metálico\"","Frase","Alta",""],
+    ["\"projeto de mezanino metálico\"","Frase","Média",""],
+    ["\"projeto de cobertura metálica\"","Frase","Média",""],
+    ["\"projeto escada metálica\"","Frase","Baixa",""],
+    ["\"laudo estrutural placa solar\"","Frase","Alta","URL: /servicos/laudos-energia-solar"],
+    ["\"laudo de telhado para energia solar\"","Frase","Alta","URL: /servicos/laudos-energia-solar"],
+    ["\"laudo cobertura metálica energia solar\"","Frase","Alta","URL: /servicos/laudos-energia-solar"]
+  ]},
+  neg:["curso","cursos","apostila","pdf","download","grátis","gratuito","modelo","planilha","excel","tcc","faculdade","vaga","vagas","emprego","salário","estágio","o que é","como fazer","significado","conserto","consertar","limpeza","higienização","recarga de gás","carga de gás","comprar","loja","mercado livre","preço do ar condicionado","btus","9000","12000","18000","usado","automotivo","veicular","carro","geladeira","técnico em refrigeração","autocad","revit","software","nbr pdf","portátil"]
+};
+const LIMITS = {headlines:[1,30],descriptions:[35,90],callouts:[1,25],snippets:[1,25]};
+
+const $ = s=>document.querySelector(s), $$ = s=>[...document.querySelectorAll(s)];
+const esc = s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const brl = (v,d=0)=>"R$ "+v.toLocaleString("pt-BR",{minimumFractionDigits:d,maximumFractionDigits:d});
+
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),1800);}
+function copy(text,msg){
+  const done=()=>toast(msg||"Copiado");
+  const fallback=()=>{const ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");done();}catch(e){toast("Selecione e copie manualmente");}ta.remove();};
+  try{navigator.clipboard.writeText(text).then(done,fallback);}catch(e){fallback();}
+}
+function cnt(s,[min,max]){const n=[...s].length;const bad=n>max||n<min;return `<span class="cnt${bad?" over":""}" title="${bad?"Fora do limite":"Dentro do limite"}">${n}/${max}</span>`;}
+
+/* listas */
+function renderList(key){
+  $("#list-"+key).innerHTML = DATA[key].map(s=>`<li class="asset"><span class="t">${esc(s)}</span>${cnt(s,LIMITS[key])}<button class="copy" data-one="${esc(s)}" aria-label="Copiar ${esc(s)}">copiar</button></li>`).join("");
+}
+["headlines","descriptions","callouts","snippets"].forEach(renderList);
+$("#list-tipos").innerHTML = DATA.tipos.map(s=>`<span class="chip">${esc(s)}${cnt(s,[1,25])}</span>`).join("");
+$("#list-marcas").innerHTML = DATA.marcas.map(s=>`<span class="chip">${esc(s)}</span>`).join("");
+$("#list-sitelinks").innerHTML = DATA.sitelinks.map((s,i)=>`
+  <article class="slc">
+    <header><h4>${esc(s.t)}</h4>${cnt(s.t,[1,25])}</header>
+    <div class="line"><span>${esc(s.d1)}</span>${cnt(s.d1,[1,35])}</div>
+    <div class="line"><span>${esc(s.d2)}</span>${cnt(s.d2,[1,35])}</div>
+    <code>https://${DOMAIN}${esc(s.u)}</code>
+  </article>`).join("");
+
+document.addEventListener("click",e=>{
+  const one=e.target.closest("[data-one]"); if(one){copy(one.dataset.one,"Texto copiado");return;}
+  const set=e.target.closest("[data-copyset]"); if(!set) return;
+  const k=set.dataset.copyset; let txt="";
+  if(k==="sitelinks") txt=DATA.sitelinks.map(s=>[s.t,s.d1,s.d2,"https://"+DOMAIN+s.u].join("\t")).join("\n");
+  else if(k==="snippets") txt="Catálogo de serviços\n"+DATA.snippets.join("\n")+"\n\nTipos\n"+DATA.tipos.join("\n")+"\n\nMarcas\n"+DATA.marcas.join("\n");
+  else txt=DATA[k].join("\n");
+  copy(txt,"Lista copiada");
+});
+
+/* palavras-chave */
+let kwCur="g1";
+function renderKW(){
+  const out=$("#kw-out");
+  if(kwCur==="neg"){
+    out.innerHTML=`<div class="panel"><h3 style="margin-bottom:6px">Lista de palavras-chave negativas</h3><p class="muted" style="margin-bottom:14px;font-size:.94rem">Aplicar como lista compartilhada, em correspondência de frase, no nível da campanha. Elas cortam consumidor final, estudante e quem procura emprego ou modelo pronto. Acrescentar novos termos a cada leitura do relatório de termos de pesquisa.</p><div class="neg">${KW.neg.map(n=>`<span>${esc(n)}</span>`).join("")}</div></div>`;
+    return;
+  }
+  const g=KW[kwCur];
+  out.innerHTML=`<div class="tbl-wrap"><table><thead><tr><th>Palavra-chave</th><th>Correspondência</th><th>Intenção</th><th>Observação</th></tr></thead><tbody>${g.rows.map(r=>`<tr><td class="kw">${esc(r[0])}</td><td>${r[1]}</td><td><span class="tag ${r[2]==="Alta"?"on":r[2]==="Média"?"later":""}">${r[2]}</span></td><td class="muted">${esc(r[3])}</td></tr>`).join("")}</tbody></table></div><p class="muted" style="margin-top:10px;font-size:.88rem">URL final do grupo: <span class="mono" style="overflow-wrap:anywhere">https://${DOMAIN}${g.url}</span> · ${g.rows.length} palavras-chave. Validar o volume no Planejador de palavras-chave antes de subir.</p>`;
+}
+$$("[data-kw]").forEach(b=>b.addEventListener("click",()=>{kwCur=b.dataset.kw;$$("[data-kw]").forEach(x=>x.setAttribute("aria-pressed",x===b));renderKW();}));
+$("#kw-copy").addEventListener("click",()=>{copy(kwCur==="neg"?KW.neg.map(n=>`"${n}"`).join("\n"):KW[kwCur].rows.map(r=>r[0]).join("\n"),"Palavras-chave copiadas");});
+renderKW();
+
+/* calculadora */
+const ids=["inv","cpc","cvr","close","ticket"];
+function calc(){
+  const v=Object.fromEntries(ids.map(i=>[i,parseFloat($("#c-"+i).value)]));
+  $("#o-inv").textContent=brl(v.inv); $("#o-cpc").textContent=brl(v.cpc,2);
+  $("#o-cvr").textContent=v.cvr.toLocaleString("pt-BR")+"%"; $("#o-close").textContent=v.close+"%";
+  $("#o-ticket").textContent=brl(v.ticket);
+  const clk=v.inv/v.cpc, leads=clk*v.cvr/100, ctr=leads*v.close/100, rec=ctr*v.ticket;
+  $("#r-clk").textContent=Math.round(clk).toLocaleString("pt-BR");
+  $("#r-lead").textContent=Math.round(leads).toLocaleString("pt-BR");
+  $("#r-cpl").textContent=leads>0?brl(v.inv/leads):"—";
+  $("#r-ctr").textContent=ctr.toLocaleString("pt-BR",{maximumFractionDigits:1});
+  $("#r-roi").textContent=brl(Math.round(rec))+" · "+(rec/v.inv).toLocaleString("pt-BR",{maximumFractionDigits:1})+"×";
+}
+ids.forEach(i=>$("#c-"+i).addEventListener("input",calc)); calc();
+
+/* SERP */
+const QUERIES=[
+  {q:"projeto de ar condicionado vrf",path:["projetos","climatizacao"],url:"/servicos/projetos-hvac",prefer:[0,1,4,2,6,7]},
+  {q:"empresa de pmoc com art",path:["pmoc","laudo-com-art"],url:"/servicos/laudos-pmoc",prefer:[3,2,10,6,11]},
+  {q:"projeto exaustão cozinha industrial",path:["projetos","exaustao"],url:"/servicos/exaustao-industrial",prefer:[9,2,5,6,8]}
+];
+let qi=0, dev=(window.innerWidth<600?"mobile":"desktop");
+$$("[data-dev]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.dev===dev));
+function pick(arr,n,first){const pool=arr.map((_,i)=>i).filter(i=>!first.includes(i));for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}return first.concat(pool).slice(0,n);}
+function bold(text,q){const norm=w=>w.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]/g,"");const qs=q.split(" ").map(norm).filter(w=>w.length>3);return text.split(/(\s+)/).map(t=>{const n=norm(t);return n&&qs.some(w=>n.startsWith(w.slice(0,Math.max(4,w.length-1))))?"<b>"+esc(t)+"</b>":esc(t);}).join("");}
+function renderSerp(shuffle){
+  const Q=QUERIES[qi];
+  let hIdx;
+  if(!shuffle){hIdx=Q.prefer.slice(0,3);} else {const lead=[Q.prefer[Math.floor(Math.random()*2)]];hIdx=pick(DATA.headlines,3,lead);}
+  const dCount=dev==="desktop"?2:2;
+  const dIdx=shuffle?pick(DATA.descriptions,dCount,[]):(qi===1?[1,3]:[0,2]);
+  const heads=hIdx.map(i=>DATA.headlines[i]);
+  const descs=dIdx.map(i=>DATA.descriptions[i]);
+  const showSnip = Math.random()>.35 || !shuffle;
+  const calloutsShown = pick(DATA.callouts,4,[0,1]).map(i=>DATA.callouts[i]);
+  const slOrder = qi===1?[1,0,5,4]:qi===2?[2,0,5,4]:[0,1,4,5];
+  const sl = slOrder.map(i=>DATA.sitelinks[i]);
+  const desc = descs.map(d=>bold(d,Q.q)).join(" ");
+  const snip = showSnip?`<div class="gsnip">Catálogo de serviços: ${DATA.snippets.slice(0,5).map(esc).join(", ")}</div>`:"";
+  const call = `<div class="gsnip">${calloutsShown.map(esc).join(" · ")}</div>`;
+  const slHTML = dev==="desktop"
+    ? `<div class="gsl">${sl.map(s=>`<div><a href="#previa" onclick="return false">${esc(s.t)}</a><p>${esc(s.d1)}<br>${esc(s.d2)}</p></div>`).join("")}</div>`
+    : `<div class="gchips">${DATA.sitelinks.map(s=>`<span>${esc(s.t)}</span>`).join("")}</div><div class="gcall"><span>Ligar</span><span>Rotas</span></div>`;
+  $("#serp").className="g "+dev;
+  $("#serp").innerHTML=`
+    <div class="gbar"><div class="glogo" aria-hidden="true"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div><div class="gsearch"><span>${esc(Q.q)}</span></div></div>
+    <div class="gtabs"><b>Todas</b><span>Imagens</span><span>Maps</span><span>Notícias</span><span>Vídeos</span></div>
+    <div class="gad">
+      <div class="gspons">Patrocinado</div>
+      <div class="gsrc"><div class="gfav"><i>MC</i></div><div class="gname"><div>Maicon Ciccheli Engenharia</div><small>${DOMAIN.replace("www.","")} › ${Q.path.join(" › ")}</small></div></div>
+      <div class="gtitle">${heads.map(esc).join(" | ")}</div>
+      <div class="gdesc">${desc}</div>
+      ${dev==="desktop"?call+snip:snip}
+      ${slHTML}
+    </div>
+    <div class="gorg" aria-hidden="true"><i style="width:40%"></i><i style="width:70%"></i><i style="width:92%"></i><i style="width:85%"></i></div>`;
+  $("#legend").innerHTML=`
+    <div><code>Títulos exibidos</code><span>${hIdx.map(i=>"T"+(i+1)).join(" · ")}</span></div>
+    <div><code>Descrições</code><span>${dIdx.map(i=>"D"+(i+1)).join(" · ")}</span></div>
+    <div><code>URL final</code><span class="mono" style="font-size:.85rem;overflow-wrap:anywhere">https://${DOMAIN}${Q.url}</span></div>`;
+}
+$$("[data-q]").forEach(b=>b.addEventListener("click",()=>{qi=+b.dataset.q;$$("[data-q]").forEach(x=>x.setAttribute("aria-pressed",x===b));renderSerp(false);}));
+$$("[data-dev]").forEach(b=>b.addEventListener("click",()=>{dev=b.dataset.dev;$$("[data-dev]").forEach(x=>x.setAttribute("aria-pressed",x===b));renderSerp(false);}));
+$("#shuffle").addEventListener("click",()=>renderSerp(true));
+renderSerp(false);
+
+/* checklist */
+const CHECK_A=[
+  "Confirmar com o cliente o domínio definitivo e as URLs /servicos/… publicadas",
+  "Concluir a verificação do anunciante no Google Ads",
+  "Instalar a tag do Google (via Tag Manager) e vincular o GA4",
+  "Criar a conversão primária \"Envio de formulário\" em todas as landing pages",
+  "Criar a conversão primária \"Clique no WhatsApp\" (contagem: uma por clique)",
+  "Criar a conversão \"Ligação a partir do anúncio\" com duração mínima de 60 s",
+  "Ativar conversões otimizadas para leads (e-mail/telefone do formulário)",
+  "Subir a lista de negativas como lista compartilhada",
+  "Desmarcar Parceiros de pesquisa e Rede de Display",
+  "Desligar a aplicação automática de recomendações",
+  "Cadastrar sitelinks, frases, snippets, chamada, local, logotipo e imagens",
+  "Revisar a força do anúncio: meta \"Boa\" ou \"Excelente\""
+];
+const CHECK_B=[
+  "A cada 3 dias (mês 1): ler os termos de pesquisa e negativar o que não for B2B",
+  "Toda semana: conferir CPC médio, parcela de impressões perdida (orçamento) e leads",
+  "Toda semana: perguntar ao Maicon quais leads eram qualificados",
+  "Dia 30: trocar títulos com classificação \"Baixo\" por novas variações",
+  "Dia 30: ajustar a programação de horários pelos dados de conversão",
+  "Com ≥ 15 conversões em 30 dias: mudar para Maximizar conversões",
+  "Mês 2: importar conversões offline (lead qualificado / contrato fechado)",
+  "Mês 3: decidir sobre o G3, o teste de AI Max e a verba extra no verão",
+  "Relatório mensal ao cliente: leads, custo por lead, contratos e próximos passos"
+];
+const KEY="mc-gads-check-v1";
+let state={}; try{state=JSON.parse(localStorage.getItem(KEY)||"{}");}catch(e){state={};}
+function renderCheck(id,arr,prefix){
+  $(id).innerHTML=arr.map((t,i)=>{const k=prefix+i;return `<li><label for="ck-${k}"><input type="checkbox" id="ck-${k}" data-ck="${k}" ${state[k]?"checked":""}><span>${esc(t)}</span></label></li>`;}).join("");
+}
+renderCheck("#check-a",CHECK_A,"a"); renderCheck("#check-b",CHECK_B,"b");
+function prog(){const all=$$("[data-ck]"),done=all.filter(c=>c.checked).length;$("#prog-txt").textContent=done+" de "+all.length+" concluídos";$("#prog-bar").style.width=(done/all.length*100)+"%";}
+document.addEventListener("change",e=>{const c=e.target.closest("[data-ck]");if(!c)return;state[c.dataset.ck]=c.checked;try{localStorage.setItem(KEY,JSON.stringify(state));}catch(err){}prog();});
+prog();
+
+/* nav ativa */
+const links=$$("#navlinks a");
+const secs=links.map(a=>document.querySelector(a.getAttribute("href")));
+const io=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){links.forEach(l=>l.classList.toggle("active",l.getAttribute("href")==="#"+en.target.id));const a=links.find(l=>l.classList.contains("active"));if(a&&a.scrollIntoView){const p=a.parentElement;p.scrollTo({left:a.offsetLeft-p.clientWidth/2+a.clientWidth/2,behavior:"smooth"});}}});},{rootMargin:"-40% 0px -55% 0px"});
+secs.forEach(s=>s&&io.observe(s));
+})();
+</script>
+</body>
+</html>
